@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 /**
@@ -38,7 +40,7 @@ public class OAuthController {
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name= "code") String code, @RequestParam(name = "state") String state,
-                           HttpServletRequest requset) {
+                           HttpServletResponse response) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setCode(code);
         accessTokenDTO.setRedirect_url(redirectUrl);
@@ -49,14 +51,15 @@ public class OAuthController {
         GithubUserDTO githubUserDTO = githubProvider.getUser(accsssToken);
         if (githubUserDTO != null){
             User user = new User();
-            user.setToken(UUID.randomUUID().toString());
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
             user.setName(githubUserDTO.getName());
             user.setAccountId(String.valueOf(githubUserDTO.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(System.currentTimeMillis());
             userMapper.insert(user);
+            response.addCookie(new Cookie("token", token));
             //登录成功
-            requset.getSession().setAttribute("user", githubUserDTO);
             return "redirect:/";
         } else {
             //登录失败
