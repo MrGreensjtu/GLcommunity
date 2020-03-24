@@ -10,7 +10,11 @@
 [Mybatis文档](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)    
 [H2数据库](http://www.h2database.com/html/quickstart.html)  
 https://blog.csdn.net/zhangtao0417/article/details/104794912/  
-https://www.concretepage.com/questions/658  
+https://www.concretepage.com/questions/658 
+[Flyway migration文档](https://flywaydb.org/getstarted/firststeps/maven#prerequisites)  
+[lombok文档](https://projectlombok.org/features/all)  
+https://blog.csdn.net/qq_36761831/article/details/86546970  
+ 
 
 ## tools
 [Git文档](https://git-scm.com/book/zh/v2)   

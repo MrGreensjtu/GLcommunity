@@ -56,7 +56,8 @@ public class OAuthController {
             user.setName(githubUserDTO.getName());
             user.setAccountId(String.valueOf(githubUserDTO.getId()));
             user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            user.setAvatar_url(githubUserDTO.getAvatar_url());
             userMapper.insert(user);
             response.addCookie(new Cookie("token", token));
             //登录成功
