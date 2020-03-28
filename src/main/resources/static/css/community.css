@@ -9,3 +9,23 @@ body{
     margin-bottom: 30px;
     float: right;
 }
+
+.media-object {
+    width: 40px;
+    height: 40px;
+}
+
+.text_desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+
+.profile .section{
+    margin-top: 15px;
+}
+
+.community-menu{
+    color: #999;
+    font-size: 13px;
+}

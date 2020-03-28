@@ -3,7 +3,7 @@
 ## refs
 [项目视频](https://www.bilibili.com/video/av65117012?p=8)    
 [Spring文档](https://spring.io/guides/gs/serving-web-content/)    
-[Bootstrap文档](https://www.bootcss.com/) 
+[Bootstrap文档](https://www.bootcss.com/)  
 [okHttp文档](https://square.github.io/okhttp/)     
 [Github API](https://developer.github.com/apps/)  
 [SpringBoot连接池](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-embedded-database-support)  
@@ -14,7 +14,8 @@ https://www.concretepage.com/questions/658
 [Flyway migration文档](https://flywaydb.org/getstarted/firststeps/maven#prerequisites)  
 [lombok文档](https://projectlombok.org/features/all)  
 https://blog.csdn.net/qq_36761831/article/details/86546970  
- 
+[thymeleaf文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)   
+https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#template-layout   
 
 ## tools
 [Git文档](https://git-scm.com/book/zh/v2)   
