@@ -3,16 +3,24 @@ body{
 }
 .main{
     background-color: white;
-    margin: 30px;
+    margin: 20px 50px;
 }
 .btn-publish{
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     float: right;
+}
+
+.btn-comment{
+    margin: 10px 0;
 }
 
 .media-object {
     width: 40px;
     height: 40px;
+}
+
+.media-body-comment{
+    padding-top: 6px;
 }
 
 .text_desc{
@@ -32,4 +40,52 @@ body{
 
 .jumbotron{
     margin: 50px;
+}
+
+.comment{
+    margin: 10px 0;
+}
+
+.sub-comment{
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.comment-sp{
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.comment-ssp{
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+.question-desc{
+    padding-left: 0;
+}
+
+.question-tag{
+    margin-right: 5px;
+}
+
+.menu{
+    margin-top: 5px;
+    color: #999;
+}
+
+.menu .icon{
+    margin-right: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.menu .active{
+    color: #286090;
+}
+
+.menu .icon:hover{
+    color: #286090;
 }

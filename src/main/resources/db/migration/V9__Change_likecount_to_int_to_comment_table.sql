@@ -1,0 +1,1 @@
+alter table COMMENT alter column LIKE_COUNT INT default 0;

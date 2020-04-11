@@ -23,7 +23,7 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model,
                         @RequestParam(name="offset", defaultValue = "1") Integer offset,
-                        @RequestParam(name="limit", defaultValue = "5") Integer limit
+                        @RequestParam(name="limit", defaultValue = "8") Integer limit
                         ) {
         PageDTO pageDTOList = questionService.list(offset, limit);
         model.addAttribute("pageList", pageDTOList);

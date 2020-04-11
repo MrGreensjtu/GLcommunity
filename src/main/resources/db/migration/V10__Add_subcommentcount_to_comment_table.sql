@@ -1,0 +1,1 @@
+alter table COMMENT add sub_comment_count int default 0;

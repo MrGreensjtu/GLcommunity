@@ -1,8 +1,6 @@
 package mrgreen.community.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import mrgreen.community.dto.QuestionDTO;
-import mrgreen.community.mapper.QuestionMapper;
 import mrgreen.community.model.Question;
 import mrgreen.community.model.User;
 import mrgreen.community.service.QuestionService;
@@ -29,7 +27,7 @@ public class PublishController {
     private QuestionService questionService;
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id") Integer id, Model model)
+    public String edit(@PathVariable(name = "id") Long id, Model model)
     {
         QuestionDTO question = questionService.getById(id);
         model.addAttribute("title", question.getTitle());
@@ -49,12 +47,17 @@ public class PublishController {
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("tag") String tag,
-            @RequestParam("id") Integer id,
+            @RequestParam("id") Long id,
             HttpServletRequest request,
             Model model) {
         model.addAttribute("title", title);
         model.addAttribute("description", description);
         model.addAttribute("tag", tag);
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            model.addAttribute("error", "用户未登录");
+            return "publish";
+        }
         if (title == null || title == "") {
             model.addAttribute("error", "标题不能为空");
             return "publish";
@@ -65,11 +68,6 @@ public class PublishController {
         }
         if (tag == null || tag == "") {
             model.addAttribute("error", "标签不能为空");
-            return "publish";
-        }
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            model.addAttribute("error", "用户未登录");
             return "publish";
         }
 
