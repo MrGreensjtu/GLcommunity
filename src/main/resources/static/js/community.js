@@ -105,5 +105,20 @@ function collapseComment(e) {
             });
         }
     }
+}
 
+function selectTag(e) {
+    var tag = e.getAttribute("data-tag");
+    var previous = $("#tag").val();
+    if(previous){
+        if(previous.indexOf(tag) == -1){
+            $("#tag").val(previous+','+tag);
+        }
+    }else{
+        $("#tag").val(tag);
+    }
+}
+
+function showSelectTag() {
+    $("#select-tag").show();
 }

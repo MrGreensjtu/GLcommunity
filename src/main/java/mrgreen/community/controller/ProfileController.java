@@ -1,7 +1,9 @@
 package mrgreen.community.controller;
 
 import mrgreen.community.dto.PageDTO;
+import mrgreen.community.model.Notification;
 import mrgreen.community.model.User;
+import mrgreen.community.service.NotificationService;
 import mrgreen.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,11 +27,14 @@ public class ProfileController {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name="action") String action, Model model, HttpServletRequest request,
                           HttpServletResponse response,
                           @RequestParam(name="offset", defaultValue = "1") Integer offset,
-                          @RequestParam(name="limit", defaultValue = "2") Integer limit) {
+                          @RequestParam(name="limit", defaultValue = "8") Integer limit) {
 
         User user = (User) request.getSession().getAttribute("user");
         if(user == null){
@@ -39,13 +44,20 @@ public class ProfileController {
         if("questions".equals(action)){
             model.addAttribute("section", "questions");
             model.addAttribute("sectionName", "我的提问");
+            PageDTO pageDTOProfileQuestionList = questionService.list(user.getId(), offset, limit);
+            model.addAttribute("pageProfileList", pageDTOProfileQuestionList);
+
         }else if("replies".equals(action)){
             model.addAttribute("section", "replies");
             model.addAttribute("sectionName", "最新回复");
+
+            PageDTO pageDTOProfileNotificationList = notificationService.list(user.getId(), offset, limit);
+            Long unreadCount = notificationService.unreadCount(user.getId());
+            model.addAttribute("unreadCount",unreadCount);
+            model.addAttribute("pageProfileList", pageDTOProfileNotificationList);
+
         }
 
-        PageDTO pageDTOProfileList = questionService.list(user.getId(), offset, limit);
-        model.addAttribute("pageProfileList", pageDTOProfileList);
         return "profile";
     }
 }

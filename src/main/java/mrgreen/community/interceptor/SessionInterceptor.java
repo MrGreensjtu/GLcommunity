@@ -1,6 +1,8 @@
 package mrgreen.community.interceptor;
 
+import mrgreen.community.mapper.NotificationMapper;
 import mrgreen.community.mapper.UserMapper;
+import mrgreen.community.model.NotificationExample;
 import mrgreen.community.model.User;
 import mrgreen.community.model.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private NotificationMapper notificationMapper;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -37,6 +41,11 @@ public class SessionInterceptor implements HandlerInterceptor {
                     List<User> users = userMapper.selectByExample(userExample);
                     if (users.size() != 0) {
                         request.getSession().setAttribute("user", users.get(0));
+                        NotificationExample notificationExample = new NotificationExample();
+                        notificationExample.createCriteria()
+                                .andReceiverEqualTo(users.get(0).getId()).andStatusEqualTo(0);
+                        long unreadNotificationCount = notificationMapper.countByExample(notificationExample);
+                        request.getSession().setAttribute("unreadNotificationCount", unreadNotificationCount);
                     }
                     break;
                 }

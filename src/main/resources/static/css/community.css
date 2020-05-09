@@ -68,7 +68,22 @@ body{
 }
 
 .question-tag{
-    margin-right: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.question-select-tag{
+    display: none;
+    margin-top: 12px;
+}
+
+.publish-allTag{
+    margin-top: 8px;
+}
+
+.question-select-tag .label-info{
+    white-space: normal;
 }
 
 .menu{

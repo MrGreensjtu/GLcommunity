@@ -1,5 +1,6 @@
 package mrgreen.community.service;
 
+import mrgreen.community.dto.NotificationDTO;
 import mrgreen.community.dto.PageDTO;
 import mrgreen.community.dto.QuestionDTO;
 import mrgreen.community.exception.CustomizeErrorCode;
@@ -44,8 +45,8 @@ public class QuestionService {
         questionExtMapper.incView(record);
     }
 
-    public PageDTO list(Integer offset, Integer limit) {
-        PageDTO pageDTO = new PageDTO();
+    public PageDTO<QuestionDTO> list(Integer offset, Integer limit) {
+        PageDTO<QuestionDTO> pageDTO = new PageDTO<>();
         Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
         pageDTO.setPagesInfo(totalCount, offset, limit);
         if (offset < 1){
@@ -69,12 +70,12 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        pageDTO.setQuestionDTOList(questionDTOList);
+        pageDTO.setData(questionDTOList);
         return pageDTO;
     }
 
-    public PageDTO list(Long userId, Integer offset, Integer limit) {
-        PageDTO pageDTO = new PageDTO();
+    public PageDTO<QuestionDTO> list(Long userId, Integer offset, Integer limit) {
+        PageDTO<QuestionDTO> pageDTO = new PageDTO<>();
         QuestionExample example = new QuestionExample();
         example.createCriteria()
                 .andCreatorEqualTo(userId);
@@ -101,7 +102,7 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOList.add(questionDTO);
         }
-        pageDTO.setQuestionDTOList(questionDTOList);
+        pageDTO.setData(questionDTOList);
         return pageDTO;
     }
 
