@@ -36,7 +36,7 @@ public class NotificationService {
         PageDTO<NotificationDTO> pageDTO = new PageDTO<>();
         NotificationExample example = new NotificationExample();
         example.createCriteria()
-                .andReceiverEqualTo(userId).andStatusEqualTo(0);
+                .andReceiverEqualTo(userId);
         Integer totalCount = (int) notificationMapper.countByExample(example);
         pageDTO.setPagesInfo(totalCount, offset, limit);
         if (offset < 1){
@@ -48,7 +48,8 @@ public class NotificationService {
         Integer page = limit*(offset-1);
         NotificationExample example1 = new NotificationExample();
         example1.createCriteria()
-                .andReceiverEqualTo(userId).andStatusEqualTo(0);
+                .andReceiverEqualTo(userId);
+        example1.setOrderByClause("gmt_create desc");
         List<Notification> notifications = notificationMapper.selectByExampleWithRowbounds(example1, new RowBounds(page, limit));
 
         if(notifications.size() == 0){
@@ -74,12 +75,6 @@ public class NotificationService {
         return pageDTO;
     }
 
-    public Long unreadCount(Long userId) {
-        NotificationExample notificationExample = new NotificationExample();
-        notificationExample.createCriteria()
-                .andReceiverEqualTo(userId).andStatusEqualTo(0);
-        return notificationMapper.countByExample(notificationExample);
-    }
 
     public NotificationDTO read(Long notificationId, User user) {
         Notification notification = notificationMapper.selectByPrimaryKey(notificationId);

@@ -1,5 +1,6 @@
 package mrgreen.community.interceptor;
 
+import mrgreen.community.enums.NotificationStatusEnum;
 import mrgreen.community.mapper.NotificationMapper;
 import mrgreen.community.mapper.UserMapper;
 import mrgreen.community.model.NotificationExample;
@@ -43,7 +44,7 @@ public class SessionInterceptor implements HandlerInterceptor {
                         request.getSession().setAttribute("user", users.get(0));
                         NotificationExample notificationExample = new NotificationExample();
                         notificationExample.createCriteria()
-                                .andReceiverEqualTo(users.get(0).getId()).andStatusEqualTo(0);
+                                .andReceiverEqualTo(users.get(0).getId()).andStatusEqualTo(NotificationStatusEnum.UNREAD.getStatus());
                         long unreadNotificationCount = notificationMapper.countByExample(notificationExample);
                         request.getSession().setAttribute("unreadNotificationCount", unreadNotificationCount);
                     }

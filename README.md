@@ -22,6 +22,9 @@ https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#template-layout
 [Git文档](https://git-scm.com/book/zh/v2)   
 https://stackoverflow.com/questions/24114676/git-error-failed-to-push-some-refs-to  
 [菜鸟教程](https://www.runoob.com/)  
+[富文本编辑](https://pandao.github.io/editor.md/)  
+[云存储UCloud](https://console.ucloud.cn/ufile/ufile)  
+[UCloud Ufile SDK](https://github.com/ucloud/ufile-sdk-java)
 
 ## 脚本  
 ```bash

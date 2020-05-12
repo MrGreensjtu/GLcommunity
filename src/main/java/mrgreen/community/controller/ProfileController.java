@@ -52,8 +52,6 @@ public class ProfileController {
             model.addAttribute("sectionName", "最新回复");
 
             PageDTO pageDTOProfileNotificationList = notificationService.list(user.getId(), offset, limit);
-            Long unreadCount = notificationService.unreadCount(user.getId());
-            model.addAttribute("unreadCount",unreadCount);
             model.addAttribute("pageProfileList", pageDTOProfileNotificationList);
 
         }
