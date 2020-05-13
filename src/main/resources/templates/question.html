@@ -102,12 +102,12 @@
                     <div class="media-left">
                         <a href="#">
                             <img class="media-object img-rounded"
-                                 th:src="${session.user != null ? session.user.getAvatarUrl() : '/iamges/avatar.png'}">
+                                 th:src="${session.user != null ? session.user.getAvatarUrl(): '/images/avatar.png'}">
                         </a>
                     </div>
                     <div class="media-body media-body-comment">
                         <h5 class="media-heading">
-                            <a th:href="@{'/question/'+ ${questionDTO.getId()}}"
+                            <a href="#"
                                th:text="${session.user != null ? session.user.getName() : '匿名用户'}"></a>
                         </h5>
                     </div>
