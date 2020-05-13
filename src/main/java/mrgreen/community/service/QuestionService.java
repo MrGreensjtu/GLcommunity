@@ -3,6 +3,7 @@ package mrgreen.community.service;
 import mrgreen.community.dto.NotificationDTO;
 import mrgreen.community.dto.PageDTO;
 import mrgreen.community.dto.QuestionDTO;
+import mrgreen.community.dto.QuestionQueryDTO;
 import mrgreen.community.exception.CustomizeErrorCode;
 import mrgreen.community.exception.CustomizeException;
 import mrgreen.community.mapper.QuestionExtMapper;
@@ -45,9 +46,20 @@ public class QuestionService {
         questionExtMapper.incView(record);
     }
 
-    public PageDTO<QuestionDTO> list(Integer offset, Integer limit) {
+    public PageDTO<QuestionDTO> list(Integer offset, Integer limit, String search) {
+        String searchRegexp = "";
+        if(StringUtils.isNotBlank(search)){
+            // tag字符串拼接
+            searchRegexp = String.join("|", StringUtils.split(search, " "));
+        /*String[] tag = StringUtils.split(questionDTO.getTag(), ",");
+        String regexpTag = Arrays.stream(tag).collect(Collectors.joining("|"));*/
+        }
+
+
         PageDTO<QuestionDTO> pageDTO = new PageDTO<>();
-        Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(searchRegexp);
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
         pageDTO.setPagesInfo(totalCount, offset, limit);
         if (offset < 1){
             offset = 1;
@@ -57,10 +69,9 @@ public class QuestionService {
         }
         Integer page = limit*(offset-1);
         /*按照创建时间倒序获取问题列表*/
-        QuestionExample example = new QuestionExample();
-        example.setOrderByClause("gmt_create desc");
-        List<Question> questions = questionMapper.selectByExampleWithBLOBsWithRowbounds(example,
-                new RowBounds(page, limit));
+        questionQueryDTO.setPage(page);
+        questionQueryDTO.setLimit(limit);
+        List<Question> questions = questionExtMapper.selectBySearchWithBLOBs(questionQueryDTO);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         for (Question question: questions) {

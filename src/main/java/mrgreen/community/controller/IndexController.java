@@ -23,10 +23,12 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model,
                         @RequestParam(name="offset", defaultValue = "1") Integer offset,
-                        @RequestParam(name="limit", defaultValue = "8") Integer limit
+                        @RequestParam(name="limit", defaultValue = "8") Integer limit,
+                        @RequestParam(name="search", required = false) String search
                         ) {
-        PageDTO pageDTOList = questionService.list(offset, limit);
+        PageDTO pageDTOList = questionService.list(offset, limit, search);
         model.addAttribute("pageList", pageDTOList);
+        model.addAttribute("search", search);
         return "index";
 
     }

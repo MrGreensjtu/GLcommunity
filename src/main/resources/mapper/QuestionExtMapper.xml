@@ -41,4 +41,21 @@
   <select id="selectRelatedWithBLOBs" parameterType="mrgreen.community.model.Question" resultMap="ResultMapWithBLOBs">
     select * from QUESTION where ID!=#{id} and TAG regexp #{tag}
   </select>
+
+  <select id="countBySearch" parameterType="mrgreen.community.dto.QuestionQueryDTO" resultType="java.lang.Integer">
+    select count(*) from QUESTION
+    <where>
+      <if test="search != null"></if>
+      and TITLE regexp #{search}
+    </where>
+  </select>
+
+  <select id="selectBySearchWithBLOBs" parameterType="mrgreen.community.dto.QuestionQueryDTO" resultMap="ResultMapWithBLOBs">
+    select * from QUESTION
+    <where>
+      <if test="search != null"></if>
+      and TITLE regexp #{search}
+    </where>
+    order by GMT_CREATE desc limit #{page},#{limit}
+  </select>
 </mapper>
